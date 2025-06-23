@@ -9,7 +9,7 @@ print("MasterMind")
 import random
 
 COLORS = ['red', 'yellow', 'orange', 'green', 'blue', 'purple'] 
- 
+
 def generate_Code(length=4, words=COLORS):
     return [str(random.choice(words)) for _ in range(length)]
 
@@ -39,27 +39,26 @@ def play_Mastermind():
     attempts = 10
 
     for attempt in range(1, attempts + 1):
-        guess = ""
+        guess = []
         valid_Guess = False
         while not valid_Guess:
-            guess = input(f"Attempt {attempt}: ").strip()
-            valid_Guess = (guess in COLORS)
+            user_input = input(f"Attempt {attempt}: ").strip().lower()
+            guess = user_input.split()
+            valid_Guess = len(guess) == 4 and all(color in COLORS for color in guess)
             if not valid_Guess:
                 print("Invalid input. Please enter 4 colors from the list: red, yellow, orange, green, blue, purple.")
             
-
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
 
         if black == 4:
-            print(f"Congratulations! You guessed the code: {''.join(secret_Code)}")
+            print(f"Congratulations! You guessed the code: {' '.join(secret_Code)}")
             return
 
-    print(f"Sorry, you've used all attempts. The correct code was: {''.join(secret_Code)}")
+    print(f"Sorry, you've used all attempts. The correct code was: {' '.join(secret_Code)}")
 
 if __name__ == "__main__":
     again = 'Y'
-    while again == 'Y' :
+    while again == 'Y':
         play_Mastermind()
-        again  = input (f"Play again (Y/N) ?").upper()
-
+        again = input("Play again (Y/N) ?").upper()
