@@ -3,20 +3,23 @@
 # by ICTROCN
 # v1.01
 # 15-8-2024
-# Last mod by DevJan : added loop for replay
+# Last mod by DevJan : added loop for replay4
+import random
+
 print("MasterMind")
 
-import random
 
 COLORS = ['red', 'yellow', 'orange', 'green', 'blue', 'purple'] 
 
 def generate_Code(length=4, words=COLORS):
     return [str(random.choice(words)) for _ in range(length)]
 
+
 def get_Feedback(secret, guess):
     black_Pegs = sum(s == g for s, g in zip(secret, guess))
-    
-    # Count whites by subtracting black and calculating min digit frequency match
+
+    # Count whites by subtracting black and 
+    # calculating min digit frequency match 
     secret_Counts = {}
     guess_Counts = {}
 
@@ -25,16 +28,22 @@ def get_Feedback(secret, guess):
             secret_Counts[s] = secret_Counts.get(s, 0) + 1
             guess_Counts[g] = guess_Counts.get(g, 0) + 1
 
-    white_Pegs = sum(min(secret_Counts.get(d, 0), guess_Counts.get(d, 0)) for d in guess_Counts)
-    
+    white_Pegs = sum(min(secret_Counts.get(d, 0), 
+    guess_Counts.get(d, 0)) for d in guess_Counts)
+
     return black_Pegs, white_Pegs
+
 
 def show_Secret(mystery):
     print(mystery)
 
+
 def play_Mastermind():
     print("Welcome to Mastermind!")
+
     print("Guess the 4-color code. Available colors are: red yellow, orange, green, blue, purple.")
+
+    print("Guess the 4-digit code. Each digit is from 1 to 6."
     secret_Code = generate_Code()
     attempts = 10
 
@@ -57,8 +66,10 @@ def play_Mastermind():
 
     print(f"Sorry, you've used all attempts. The correct code was: {' '.join(secret_Code)}")
 
+
 if __name__ == "__main__":
     again = 'Y'
     while again == 'Y':
         play_Mastermind()
         again = input("Play again (Y/N) ?").upper()
+
